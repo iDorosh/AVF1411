@@ -1,0 +1,388 @@
+var userInterface2 = function(forecast,data){
+	  i = forecast.length - 1;
+	var win = Ti.UI.createWindow({
+		title: "Weather Insider",
+		backgroundColor: "E0E0E2",
+		layout: "vertical",
+		navBarHidden: true,
+	});
+	
+	var city = Titanium.UI.createLabel({
+			text: forecast[i].city,
+			top:0,
+			color:"#073f68",
+			font: {fontSize: "40%", fontFamily: "Helvetica", fontWeight: "Bold"}
+		});
+		
+		if (Ti.Platform.osname == "ipad"){
+				city.top = 165;
+			};
+			
+		
+		var state = Titanium.UI.createLabel({
+			text: forecast[i].state,
+			top: 1,
+			color:"1288e0",
+			font: {fontSize: "20%", fontFamily: "Helvetica", fontWeight: "light"}
+		});
+		
+		var icon = Ti.UI.createImageView({
+			top: "3%",
+			height: "33%",
+			image: "weathericons/cloudy.png"
+		});
+		
+	
+		var line = Ti.UI.createView({
+			top:5,
+			width: 305,
+			height: 1,
+			backgroundColor:"#2D2D2D",
+		});
+		var weather = Titanium.UI.createLabel({
+			text: forecast[i].condition,
+			top: ".5%",
+			color:"#073f68",
+			font: {fontSize: "20%", fontFamily: "Helvetica", fontWeight: "bold"}
+		});
+		
+		var a = forecast[i].temp;
+		
+		var c = a;
+		var b = Math.round(c);
+		
+		var temp = Titanium.UI.createLabel({
+			text: b+"°F",
+			top: "3%",
+			color:"878787",
+			font: {fontSize: "50%", fontFamily: "Helvetica", fontWeight: "bold"}
+		});
+
+		
+		var tenDay = Titanium.UI.createLabel({
+			text: "Hourly Forecast",
+			top: "1.5%",
+			color:"#2D2D2D",
+			font: {fontSize: "30%", fontFamily: "Helvetica", fontWeight: "light"}
+		});
+	
+		
+		var updateView = Ti.UI.createView({
+				top: 30,
+				width: "90%",
+				height: 20,
+				
+			});
+			
+		
+		var lastUpDate = Titanium.UI.createLabel({
+			text: "Last Updated",
+			left: 65,
+			color:"#878787",
+			font: {fontSize: "14%", fontFamily: "Helvetica", fontWeight: "regular"}
+		});
+		
+		
+		var updateTime = function(data){
+			
+			var time = Titanium.UI.createLabel({
+				text: data,
+				right: 65,
+				color:"#0f70b8",
+				font: {fontSize: "20%", fontFamily: "Helvetica", fontWeight: "regular"}
+			});
+			
+			if (Ti.Platform.osname == "ipad"){
+				lastUpDate.left = 265;
+				time.right = 265;
+			};
+
+		
+			updateView.add(time);
+			
+		};	
+		updateTime(Ti.App.Properties.getString('timestamp'));
+		
+		var unavailable = Titanium.UI.createLabel({
+			text: "Unavailable",
+			top: 10,
+			color:"1288e0",
+			font: {fontSize: "20%", fontFamily: "Helvetica", fontWeight: "light"}
+		});
+		
+		var refresh = Ti.UI.createImageView({
+			height: "3%",
+			top: 30,
+			right: -100,
+			image: "image/refresh.png"
+		});
+		
+		refresh.addEventListener("click",function(e){
+			net.currentLocation();
+		});	
+		
+		
+		if (forecast.weather === "Overcast"){
+		icon.image = "weathericons/overcast.png";
+		};
+		if (forecast.weather === "Clear"){
+			icon.image = "weathericons/sun.png";
+		};
+		if (forecast.weather === "Partly Cloudy"){
+			icon.image = "weathericons/cloudy.png";
+		};
+		var navWindow = Ti.UI.iOS.createNavigationWindow({
+		window: win,
+	});
+		updateView.add(lastUpDate,refresh);
+		win.add(refresh,city,state, icon,temp, weather, updateView, line, tenDay,unavailable);
+		navWindow.open();
+};
+
+
+
+
+
+
+
+var  userInterface = function(forecast, data){
+	var win = Ti.UI.createWindow({
+		title: "Weather Insider",
+		backgroundColor: "E0E0E2",
+		layout: "vertical",
+		navBarHidden: true,
+	});
+	
+	rowData = [];	
+		var scroll = Ti.UI.createScrollView({
+			top: 20,
+			contentWidth: "100%",		
+			showVerticalScrollIndicator: false,
+			layout: "vertical",
+		    width: "100%",
+		    height: "auto",
+		});
+		
+       i = forecast.length - 1;
+		
+		var city = Titanium.UI.createLabel({
+			text: forecast[i].city,
+			color:"#073f68",
+			font: {fontSize: "40%", fontFamily: "Helvetica", fontWeight: "Bold"}
+		});
+				
+		city.addEventListener("click",function(e){
+			net.currentLocation();
+		});
+		var state = Titanium.UI.createLabel({
+			text: forecast[i].state,
+			top: 1,
+			color:"1288e0",
+			font: {fontSize: "20%", fontFamily: "Helvetica", fontWeight: "light"}
+		});
+		
+		var icon = Ti.UI.createImageView({
+			top: "3%",
+			height: "33%",
+			image: "weathericons/cloudy.png"
+		});
+		
+		var line = Ti.UI.createView({
+			top:5,
+			width: 305,
+			height: 1,
+			backgroundColor:"#2D2D2D",
+		});
+		var weather = Titanium.UI.createLabel({
+			text: forecast[i].condition,
+			top: ".5%",
+			color:"#073f68",
+			font: {fontSize: "20%", fontFamily: "Helvetica", fontWeight: "bold"}
+		});
+		
+		var a = forecast[i].temp;
+		
+		var c = a;
+		var b = Math.round(c);
+		
+		var temp = Titanium.UI.createLabel({
+			text: b+"°F",
+			top: "3%",
+			color:"878787",
+			font: {fontSize: "50%", fontFamily: "Helvetica", fontWeight: "bold"}
+		});
+
+		
+		var tenDay = Titanium.UI.createLabel({
+			text: "Hourly Forecast",
+			top: "1.5%",
+			color:"#2D2D2D",
+			font: {fontSize: "30%", fontFamily: "Helvetica", fontWeight: "light"}
+		});
+	
+		
+		var updateView = Ti.UI.createView({
+				top: 30,
+				width: "90%",
+				height: 20,
+				
+			});
+			
+		var lastUpDate = Titanium.UI.createLabel({
+			text: "Last Updated",
+			left: 65,
+			color:"#878787",
+			font: {fontSize: "14%", fontFamily: "Helvetica", fontWeight: "regular"}
+		});
+		
+		
+		var updateTime = function(data){
+			
+			var time = Titanium.UI.createLabel({
+				text: data,
+				right: 65,
+				color:"#0f70b8",
+				font: {fontSize: "20%", fontFamily: "Helvetica", fontWeight: "regular"}
+			});
+			updateView.add(time);
+			
+			if (Ti.Platform.osname == "ipad"){
+				lastUpDate.left = 265;
+				time.right = 265;
+			};
+		};	
+		updateTime(Ti.App.Properties.getString('timestamp'));
+		
+		
+		
+		if (forecast.weather === "Overcast"){
+			icon.image = "weathericons/overcast.png";
+		};
+		if (forecast.weather === "Clear"){
+			icon.image = "weathericons/sun.png";
+		};
+		if (forecast.weather === "Partly Cloudy"){
+			icon.image = "weathericons/cloudy.png";
+		};
+		
+		var arrow = Ti.UI.createImageView({
+			top: "1%",
+			height: "3%",
+			image: "image/arrow.png"
+		});
+		
+		var house = Ti.UI.createView({
+				top: 0,
+				width: "90%",
+				height: "2%",
+				
+			});
+			
+			var house2 = Ti.UI.createView({
+				top: 0,
+				width: "90%",
+				height: 70,
+				
+			});
+			
+			var refresh = Ti.UI.createImageView({
+				height: "3%",
+				right: -100,
+				image: "image/refresh.png"
+			});
+			
+			refresh.addEventListener("click",function(e){
+				net.currentLocation();
+			});	
+		
+			updateView.add(lastUpDate);
+			scroll.add(refresh, city,state, icon,temp, weather, updateView, line, tenDay,arrow,house);
+			rowData.push(scroll);
+			
+	for(var i=0, j=data.length; i<10; i++){
+		
+	
+		var lines = Ti.UI.createView({
+				top: 10,
+				width: "90%",
+				height: "10%",
+				borderRadius: 15,
+				backgroundColor:"#c2c5c7",
+			});
+			
+		var lines1 = Ti.UI.createImageView({
+				image: "weathericons/sun.png",
+				
+				height: "65%",
+			});
+			
+		if (data[i].condition === "Clear"){
+			lines1.image = "weathericons/sun.png";
+		};	
+		if (data[i].condition === "Mostly Cloudy"){
+			lines1.image = "weathericons/cloudy.png";
+		};
+		if (data[i].condition === "Overcast"){
+			lines1.image = "weathericons/overcast.png";
+		};
+		if (data[i].condition === "Rain"){
+			lines1.image = "weathericons/ran.png";
+		};
+		var test = Titanium.UI.createLabel({
+			text: data[i].FCTTIME.civil,
+			top:"20%",
+			left: "5%",
+			color:"#fff",
+			font: {fontSize: "18%", fontFamily: "Helvetica", fontWeight: "regular"},
+			
+		});
+		
+		var degrees = Titanium.UI.createLabel({
+			text: data[i].temp.english+ "°F",
+			right: "5%",
+			color:"#0f70b8",
+			font: {fontSize: "20%", fontFamily: "Helvetica", fontWeight: "regular"}
+		});
+		
+		var test1 = Titanium.UI.createLabel({
+			text: data[i].FCTTIME.weekday_name,
+			top: '50%',
+			left: "6%",
+			color:"103855",
+			font: {fontSize: "14%", fontFamily: "Helvetica", fontWeight: "light"}
+		});
+		
+		if (Ti.Platform.osname == "ipad"){
+			test.font = {fontSize: 36};
+			test.top = "20%",
+			test1.font = {fontSize: 24};
+			test1.top = "54%";
+			degrees.font = {fontSize: 36};
+			lines1.height = 80;
+		};
+		
+
+		
+		
+		lines.add(lines1,test, test1,degrees);
+		scroll.add(lines);
+	};
+		
+		var navWindow = Ti.UI.iOS.createNavigationWindow({
+		window: win,
+	});
+		scroll.add(house2);
+		win.add(rowData);
+		navWindow.open();
+};
+
+
+
+//exports user interface function to be called in data.js
+exports.userInterface = userInterface;
+exports.userInterface2 = userInterface2;
+//make a navigation window and sets the window to win.
+
+
+
+

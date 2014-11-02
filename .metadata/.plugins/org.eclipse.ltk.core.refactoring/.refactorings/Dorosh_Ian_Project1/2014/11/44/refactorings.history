@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Dorosh_Ian_Project1/Resources/weathericons/1414897980_Weather_icons_grey-03-128.png&apos; to &apos;rain.png&apos;" description="Rename resource &apos;1414897980_Weather_icons_grey-03-128.png&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Resources/weathericons/1414897980_Weather_icons_grey-03-128.png" name="rain.png" stamp="1414880487672" updateReferences="true"/>
+</session>

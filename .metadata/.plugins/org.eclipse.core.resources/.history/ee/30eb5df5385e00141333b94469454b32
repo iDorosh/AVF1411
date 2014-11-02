@@ -1,0 +1,39 @@
+//Simply calls the netCheck function in data.js;
+//var net = require("data");
+
+//net.netCheck();
+//Gets users current location
+var currentLocation = function(){
+	//Asks user for permission to get current location and also tells the user why it is needed.
+	Ti.Geolocation.purpose = "To find weather conditions near you.";
+	Titanium.Geolocation.getCurrentPosition( function(e) {
+	    if (!e.success) {
+	        alert('Could not retrieve location');
+	        return;
+	    };
+	    var longitude = e.coords.longitude;
+	    var latitude = e.coords.latitude;
+	
+	// Gets the users current city
+	Titanium.Geolocation.reverseGeocoder(latitude,longitude, function(evt) {
+	        var city;
+	        var state;
+	        if (evt.success) {
+	            var places = evt.places;
+	            if (places && places.length) {
+	                city = places[0].city;
+	                state = places[0].state;
+	                 console.log(city);
+					console.log(state);
+					};
+	
+	            } else {
+	                address = "No address found";
+		            };
+		     
+		      
+		    });
+		});
+};
+
+currentLocation();
