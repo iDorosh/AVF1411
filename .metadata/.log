@@ -4857,3 +4857,19 @@ java.lang.NullPointerException
 	at com.aptana.usage.internal.DefaultAnalyticsEventHandler.sendEventSync(DefaultAnalyticsEventHandler.java:241)
 	at com.aptana.usage.internal.DefaultAnalyticsEventHandler$1.run(DefaultAnalyticsEventHandler.java:75)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+
+!ENTRY org.eclipse.core.resources 4 568 2014-11-05 16:23:14.013
+!MESSAGE Could not write metadata for '/Dorosh_Ian_Project2'.
+!STACK 0
+java.io.FileNotFoundException: /Users/iDorosh/Documents/Full Sail/Advanced Visual Frameworks/AVF1411/.metadata/.plugins/org.eclipse.core.resources/.projects/Dorosh_Ian_Project2/1.tree (No such file or directory)
+	at java.io.FileOutputStream.open(Native Method)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:194)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:145)
+	at org.eclipse.core.internal.localstore.SafeFileOutputStream.<init>(SafeFileOutputStream.java:51)
+	at org.eclipse.core.internal.resources.SaveManager.writeTree(SaveManager.java:2052)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1179)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1109)
+	at org.eclipse.core.internal.resources.Project.close(Project.java:203)
+	at com.aptana.git.core.GitProjectRefresher$1.runInWorkspace(GitProjectRefresher.java:138)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:38)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
