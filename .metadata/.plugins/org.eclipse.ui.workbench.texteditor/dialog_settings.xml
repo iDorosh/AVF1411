@@ -5,16 +5,16 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="wholeword"/>
-		<item value="house" key="selection"/>
+		<item value="scroll" key="selection"/>
 		<list key="findhistory">
-			<item value="house"/>
-			<item value="win"/>
-			<item value="time"/>
-			<item value="time\"/>
-			<item value="while"/>
-			<item value="for"/>
-			<item value="read"/>
+			<item value="scroll"/>
+			<item value="am"/>
+			<item value="&#x0A;&#x09;&#x09;var line = Ti.UI.createView({"/>
 			<item value="console.log"/>
+			<item value="null"/>
+			<item value="refresh"/>
+			<item value="forecast[i].condition"/>
+			<item value="navWindow"/>
 		</list>
 	</section>
 </section>

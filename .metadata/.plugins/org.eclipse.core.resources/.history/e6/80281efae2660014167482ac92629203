@@ -1,0 +1,48 @@
+var Cloud = require("ti.cloud");
+
+Cloud.debug = true;
+
+var loginApp = function(){
+	Cloud.Users.login({
+	    login: 'com.fullsail.demoApp',
+	    password: '12345'
+	}, function (e) {
+	    if (e.success) {
+	        var user = e.users[0];
+	        createArray();
+	        alert('Success:\n' +
+	            'id: ' + user.id + '\n' +
+	            'sessionId: ' + Cloud.sessionId + '\n' +
+	            'first name: ' + user.first_name + '\n' +
+	            'last name: ' + user.last_name);
+	    } else {
+	        alert('Error:\n' +
+	            ((e.error && e.message) || JSON.stringify(e)));
+	    }
+	});
+};
+
+var createArray = function(){
+	Cloud.Objects.create({
+	    classname: 'city',
+	    fields: {
+	        make: 'nissan',
+	        color: 'blue',
+	        year: 2005
+	    }
+	}, function (e) {
+	    if (e.success) {
+	        var car = e.cars[0];
+	        alert('Success:\n' +
+	            'id: ' + car.id + '\n' +
+	            'make: ' + car.make + '\n' +
+	            'color: ' + car.color + '\n' +
+	            'year: ' + car.year + '\n' +
+	            'created_at: ' + car.created_at);
+	    } else {
+	        alert('Error:\n' +
+	            ((e.error && e.message) || JSON.stringify(e)));
+	    }
+	});
+};
+exports.loginApp = loginApp;

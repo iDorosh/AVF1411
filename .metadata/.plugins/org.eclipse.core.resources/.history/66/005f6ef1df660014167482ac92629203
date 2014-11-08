@@ -1,0 +1,5 @@
+//Simply calls the netCheck function in data.js;
+var geo = require("geo");
+var cloud = require("cloud");
+logInApp();
+geo.currentLocation();

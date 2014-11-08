@@ -1,3 +1,3 @@
-FIND_BAR_DECORATOR_FIND_ENTRIES=\#\n\#Sat Nov 01 19\:13\:45 CDT 2014\n8\=create\n7\=console.log\n6\=read\n5\=for\n4\=while\n3\=time\\\\\n2\=time\n1\=win\n0\=house\n
+FIND_BAR_DECORATOR_FIND_ENTRIES=\#\n\#Fri Nov 07 18\:21\:01 CST 2014\n9\=color\n8\=last updated\n7\=navWindow\n6\=forecast[i].condition\n5\=refresh\n4\=null\n3\=console.log\n2\=\\n\\t\\tvar line \\\= Ti.UI.createView({\n10\=backgroundColor\n1\=am\n0\=scroll\n
 FIND_BAR_DECORATOR_REPLACE_ENTRIES=\#\n\#Sat Nov 01 19\:13\:45 CDT 2014\n0\=topSpace\n
 eclipse.preferences.version=1

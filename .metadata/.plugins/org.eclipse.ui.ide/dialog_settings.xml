@@ -11,6 +11,11 @@
 		<item value="org.eclipse.platform:4.3.2.v20140221-1852"/>
 		<item value="org.eclipse.rcp:4.3.2.v20140221-1700"/>
 	</list>
+	<section name="NewWizardAction">
+		<item value="com.appcelerator.titanium.mobile.project_wizard" key="NewWizardSelectionPage.STORE_SELECTED_ID"/>
+		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
+		</list>
+	</section>
 	<section name="CleanDialogSettings">
 		<item value="484" key="DIALOG_WIDTH"/>
 		<item value="true" key="BUILD_NOW"/>

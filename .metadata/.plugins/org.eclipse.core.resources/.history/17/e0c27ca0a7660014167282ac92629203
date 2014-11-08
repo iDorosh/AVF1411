@@ -1,0 +1,50 @@
+var network = require("network");
+//Requires the ui.js file to run
+var ui = require("ui");
+var ui2 = require("ui2");
+
+
+Ti.Database.install("weather.sqlite", "weather");
+
+
+var create = function(city,state,condition,temp){
+	var db = Ti.Database.open("weather");
+	db.execute('INSERT INTO data (city,state,condition,temp) VALUES(?,?,?,?)', city,state,condition,temp);
+	var rowID = db.lastInsertRowId;
+	db.close();
+	tblData = [];
+};
+exports.create = create;
+
+
+var tblData = [];
+var read = function(window,yes){
+var db = Ti.Database.open("weather");
+	var dbRows = db.execute("SELECT id,city,state,condition,temp FROM data");
+	while (dbRows.isValidRow()) {
+		tblData.push({
+			id: dbRows.fieldByName("id"),
+			city: dbRows.fieldByName("city"),
+			state: dbRows.fieldByName("state"),
+			condition: dbRows.fieldByName("condition"),
+			temp: dbRows.fieldByName("temp"),
+			
+		});
+		dbRows.next();
+	};
+	console.log(network.test);
+	console.log(yes);
+	if (network.test == true){
+		console.log(network.jsonData2);
+		ui.userInterface(tblData, network.jsonData2);
+		}else{
+		
+		ui2.userInterface2(tblData, network.jsonData2);	
+		};
+	dbRows.close();
+	db.close();
+	ui.profilesTable = tblData;
+	
+};
+exports.read = read;
+

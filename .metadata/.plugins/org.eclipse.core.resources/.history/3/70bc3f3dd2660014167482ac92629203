@@ -1,0 +1,32 @@
+var network = require("network");
+var data = require("data");
+//Gets users current location
+var currentLocation = function(){
+		if(Titanium.Network.online==true){
+			//Asks user for permission to get current location and also tells the user why it is needed.
+			Ti.Geolocation.purpose = "To find weather conditions near you.";
+			Titanium.Geolocation.getCurrentPosition( function(e) {
+			    if (!e.success) {
+			        alert('Could not retrieve location');
+			        return;
+			        network.test=false;
+			        data.read();
+			    }else{
+			    var longitude = e.coords.longitude;
+			    var latitude = e.coords.latitude;
+				network.netCheck2(longitude, latitude);
+				
+				};
+				
+			});
+		}else{
+			var netWork = Ti.UI.createAlertDialog({
+				    message: 'Could not retrieve location',
+				    title: 'Network Unavailable',
+				  });
+			netWork.show();
+			network.test=false;
+			data.read();
+		};
+	};
+exports.currentLocation = currentLocation;

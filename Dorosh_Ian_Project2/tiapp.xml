@@ -7,7 +7,7 @@
     <version>1.0</version>
     <publisher>iDorosh</publisher>
     <url>http://</url>
-    <description/>
+    <description>undefined</description>
     <copyright>2014 by iDorosh</copyright>
     <icon>appicon.png</icon>
     <fullscreen>false</fullscreen>
@@ -18,6 +18,10 @@
     <ios>
         <plist>
             <dict>
+                <key>NSLocationWhenInUseUsageDescription</key>
+                <string>Test NSLocationWhenInUseUsageDescription</string>
+                <key>NSLocationAlwaysUsageDescription</key>
+                <string>To find weather conditions near you</string>
                 <key>UISupportedInterfaceOrientations~iphone</key>
                 <array>
                     <string>UIInterfaceOrientationPortrait</string>
