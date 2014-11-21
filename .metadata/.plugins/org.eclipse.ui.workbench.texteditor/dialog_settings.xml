@@ -2,19 +2,19 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="isRegEx"/>
 		<item value="false" key="casesensitive"/>
+		<item value="false" key="isRegEx"/>
 		<item value="false" key="wholeword"/>
-		<item value="scroll" key="selection"/>
+		<item value="currentDay" key="selection"/>
 		<list key="findhistory">
+			<item value="currentDay"/>
+			<item value="wednes"/>
 			<item value="scroll"/>
-			<item value="am"/>
-			<item value="&#x0A;&#x09;&#x09;var line = Ti.UI.createView({"/>
-			<item value="console.log"/>
-			<item value="null"/>
-			<item value="refresh"/>
-			<item value="forecast[i].condition"/>
-			<item value="navWindow"/>
+			<item value="exports.profilesTable = profilesTable;"/>
+			<item value="profilesTable"/>
+			<item value="currentView"/>
+			<item value="login1.test[i].name"/>
+			<item value="tableData"/>
 		</list>
 	</section>
 </section>

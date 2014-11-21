@@ -1,0 +1,121 @@
+var jsonData2 = [];
+var testing = [];	
+
+var ui = require("ui");
+var ui2 = require("ui2");
+
+var netCheck3 = function(city,longitude,latitude){
+
+var ui = require("ui");
+var url = "http://api.wunderground.com/api/035012bdcd3a3f65/forecast10day/q/"+latitude+","+longitude+".json";
+	if (Ti.Network.online) {
+	     var getData = Ti.Network.createHTTPClient();
+	     getData.onload = function(e){
+	          var json = JSON.parse(this.responseText);
+	          posts = json.forecast.simpleforecast.forecastday;
+	      
+	         var postArray = [];
+				for (i=0, j=posts.length; i<j; i++){
+					var post = {
+						title: posts[i].date.weekday,
+						temp: posts[i].high,
+						wind: posts[i].avewind.mph,
+						humidity: posts[i].avehumidity,
+					};	
+					postArray.push(post);
+				};
+	          var timestamp = function(){
+	    	 		var hours = Math.round(new Date().getHours());
+	    	 		var min = Math.round(new Date().getMinutes());
+		    	 		
+		    	 		if(min<10){
+			    	 		min = "0"+min;
+			    	 		}else {
+			    	 			min = min;
+			    	 		};
+			    	 	if (hours == 12){
+			    	 		var hours = hours;
+			    	 		var min = min+"pm";
+			    	 		return hours+":"+min;
+			    	 	}else {
+			    	 		hours = hours;
+			    	 		min = min;
+			    	 	};
+			    	 	
+		    	 		if(hours>12){
+		    	 			var hours = hours-12;
+		    	 			var min = min+"pm";
+		    	 			return hours+":"+min;
+		    	 		}else{
+		    	 			var hours = hours;
+		    	 			var min = min+"am";
+		    	 			return hours+":"+min;
+		    	 		};		
+		    	};
+		    	
+				
+				Ti.App.Properties.setString('timestamp', timestamp());
+				
+				ui.userInterface(city,postArray);
+				 var alert = Ti.UI.createAlertDialog({
+			        	message: "Thanks for logging in ",
+			        	title: "Login Successful",
+			        });
+			        alert.show;
+				ui2.loginWin.close();
+				exports.jsonData2 = jsonData2;
+				
+		 }; //getData.onload closing
+	     getData.open("GET", url);
+	     getData.send();
+	} else {
+	     alert("Network currently unavailable.");
+		}; // if else Ti.Network closing
+};
+//exports netCheck function to app.js were it can be called.
+exports.netCheck3 = netCheck3;
+
+
+
+
+//Function to check network status
+var netCheck = function(longitude,latitude){
+	
+var ui = require("ui");
+var url = "http://api.wunderground.com/api/035012bdcd3a3f65/conditions/q/"+latitude+","+longitude+".json";
+	if (Ti.Network.online) {
+	     var getData = Ti.Network.createHTTPClient();
+	     getData.onload = function(e){
+	          var json = JSON.parse(this.responseText);
+	          var forecast = json.current_observation;
+	          var city = forecast.display_location.city;
+				netCheck3(city,longitude,latitude);
+		 }; //getData.onload closing
+	     getData.open("GET", url);
+	     getData.send();
+	} else {
+	     alert("Network currently unavailable.");
+		}; // if else Ti.Network closing
+};
+//exports netCheck function to app.js were it can be called.
+exports.netCheck = netCheck;
+
+var netCheck2 = function(longitude, latitude){
+	var ui = require("ui");
+	var url = "http://api.wunderground.com/api/035012bdcd3a3f65/hourly/q/"+latitude+","+longitude+".json";
+		if (Ti.Network.online) {
+		     var getData = Ti.Network.createHTTPClient();
+		     getData.onload = function(e){
+		          var json = JSON.parse(this.responseText);
+		          jsonData2 = json.hourly_forecast;
+		          netCheck(longitude, latitude);
+		     }; //getData.onload closing
+		     getData.open("GET", url);
+		     getData.send();
+		} else {
+		     alert("Network currently unavailable.");
+		}; 
+};
+//exports netCheck function to app.js were it can be called.
+exports.netCheck = netCheck;
+exports.netCheck2 = netCheck2;

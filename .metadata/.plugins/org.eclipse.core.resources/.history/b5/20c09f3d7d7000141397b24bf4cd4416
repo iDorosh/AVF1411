@@ -1,0 +1,14 @@
+var ui = require("ui");
+
+var data = {
+	"week":{
+		"Wednesday": [
+			
+		],
+		"Thursday": [
+			
+		],
+	}
+};
+
+ui.loginScreen();

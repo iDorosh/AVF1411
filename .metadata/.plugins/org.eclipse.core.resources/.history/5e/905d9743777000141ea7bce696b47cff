@@ -1,0 +1,5 @@
+var ui = require("ui");
+
+var days = [];
+
+ui.loginScreen();

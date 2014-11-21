@@ -1,0 +1,5 @@
+var ui = require("ui");
+
+var Wednesday = [];
+var Thursday = [];
+ui.loginScreen();

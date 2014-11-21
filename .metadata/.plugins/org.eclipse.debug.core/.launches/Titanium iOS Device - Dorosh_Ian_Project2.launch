@@ -7,7 +7,7 @@
 <stringAttribute key="certificate" value="Ian Dorosh (4N46ED86YH)"/>
 <stringAttribute key="debug_config" value="::1415466193401:192.168.56.1,192.168.29.164"/>
 <stringAttribute key="debug_hosts" value="192.168.56.1,192.168.29.164"/>
-<stringAttribute key="device_id" value="c9ff35c3c2603755c09182b502c0606bb15bd644"/>
+<stringAttribute key="device_id" value="0e3cb27a3ad9d4b9ff2e543bcb0d2eba9d428ba3"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
 <listEntry value="/Dorosh_Ian_Project2"/>
 </listAttribute>

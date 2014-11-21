@@ -1,0 +1,480 @@
+var login1 = require("login");
+var ui2 = require("ui2");
+var Cloud = require("ti.cloud");
+Cloud.debug = true;
+var daysArray = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+
+
+
+var win1 = Titanium.UI.createWindow({  
+    backgroundColor:'#222222',
+    navBarHidden: true,
+    modal:true,
+});
+
+var win2 = Titanium.UI.createWindow({  
+    title: "Projects",
+    backgroundColor:'#222222',
+    navBarHidden: false,
+    modal:true,
+   
+});
+
+var add = Titanium.UI.createWindow({  
+    title: "Add Project",
+    backgroundColor:'#222222',
+    navBarHidden: false,
+    modal:true,
+   
+});
+
+var loginScreen = function(){
+	var loginStatus = false;
+		if(loginStatus == false){
+			ui2.login();
+		} else{
+			
+		}
+};
+
+exports.loginScreen = loginScreen;
+
+//If there is a network This function will run
+var  userInterface = function(forecast, data){
+	var colors = ["#617eff","#8c128b","#72c2e7","#65d84a","#ffc500","#fd925c","#fc554c"];
+	// this sets the background color of the master UIView (when there are no windows/tab groups on it)
+Titanium.UI.setBackgroundColor('#000');
+var data1 = [1,2,3,4,5,6,7];
+
+
+i = forecast.length - 1;
+	var a = forecast[i].temp;
+	var c = a;
+	var b = Math.round(c);
+
+var background = Ti.UI.createView({
+	backgroundColor: "#222222",
+});
+
+var locationIcon = Ti.UI.createImageView({
+	image: "icons/location.png",
+	left: 20,
+	top: 35,
+	height: 25,
+});
+
+var city = Ti.UI.createLabel({
+	text: forecast,
+	color: "#acabab",
+	top: ".5%",
+	left: "5%",
+	font: {fontSize: "25%", fontFamily: "Helvetica", fontWeight: "light"}
+});
+
+
+
+var scrollableView = Ti.UI.createScrollableView({
+  views:[],
+  showPagingControl:true
+});
+var currentView = 0;
+scrollableView.addEventListener('scrollend', function (e) {
+		    currentView = e.currentPage;
+		});
+	exports.currentView = currentView;	
+var addProject = function(day){
+	console.log(day);
+		var clientName = Titanium.UI.createTextField({
+		    color: "#484949",
+		    top: 20,
+		    height:50,
+		    width:"240",
+		    borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED,
+		    hintText:"Client Name", 
+		});
+		
+		var projectName = Titanium.UI.createTextField({
+		    color: "#484949",
+		    top: 80,
+		    height:50,
+		    width:"240",
+		    borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED,
+		    hintText:"Project Name", 
+		});
+		
+		var start = Ti.UI.createView({
+			backgroundColor: "#eae8e8",
+			top: 150,
+			width: "80%",
+			height: 50,
+			borderRadius: 5,
+			
+		});
+		
+		
+		var city = Ti.UI.createLabel({
+			text: "Add Project",
+			color: "#acabab",
+			font: {fontSize: "25%", fontFamily: "Helvetica", fontWeight: "light"}
+		});
+		var tblData = [];
+		start.addEventListener("click", function(e){
+			createArray(clientName.value,projectName.value,day);
+		});
+		exports.tblData = tblData;
+		start.add(city);
+		add.add(start);
+		add.add(clientName);
+		add.add(projectName);
+	
+		if(Ti.Platform.osname == "android"){
+			add.open();
+		}else{
+		navWindow.openWindow(add);
+		};
+	};
+
+
+var customArray = {"mon":weekdays.week.Monday,"tue":weekdays.week.Tuesday,"wed":weekdays.week.Wednesday,"thu":weekdays.week.Thursday,"fri":weekdays.week.Friday,"sat":weekdays.week.Saturday,"sund":weekdays.week.Sunday};
+console.log(customArray);
+for(var i=0, j=data.length; i<7; i++){
+
+
+
+var purple = Ti.UI.createView({
+	backgroundColor: colors[i],
+	top: "10%",
+	height: "80%",
+	width: "90%",
+	borderRadius: 6,
+});
+
+
+var day = Ti.UI.createLabel({
+	text: data[i].title,
+	color: "#eae8e8",
+	top: 15,
+	font: {fontSize: "30%", fontFamily: "Helvetica", fontWeight: "Bold"}
+});
+
+var noJobs = Ti.UI.createLabel({
+	text: "No Current Jobs",
+	color: "#eae8e8",
+	top: 150,
+	font: {fontSize: "15%", fontFamily: "Roboto", fontWeight: "light"}
+});
+
+purple.add(noJobs);
+
+for(var a=0, b=7; a<b; a++){
+	
+	
+	var square = Ti.UI.createScrollView({
+			top: 60,
+			backgroundColor: colors[i],
+			contentWidth: "100%",
+			contentHeight: "auto",
+			showVerticalScrollIndicator: true,
+			layout: "vertical",
+		    width: "auto",
+		    height: "90%",
+		});
+		
+	var row = Ti.UI.createView({
+		top: 20,
+		backgroundColor: "#fff",
+		width: "auto",
+		height: 60,
+		id: i,
+		name: i,
+		titleDay: day.text,
+	});
+	
+	var words = Ti.UI.createLabel({
+	text: i,
+	color: "#000",
+	left: 20,
+	font: {fontSize: "25%", fontFamily: "Roboto", fontWeight: "Bold"}
+});
+
+var id = Ti.UI.createLabel({
+	text: i,
+	color: "#000",
+	top: "60%",
+	left: 20,
+	font: {fontSize: "15%", fontFamily: "Roboto", fontWeight: "Bold"}
+});
+			for(var d=0, e=3; d<e; d++){
+					if(day.text == "Wednesday"){
+						words.text = customArray.wed[d].name;
+						row.id = customArray.wed[d].id;
+						row.name = customArray.wed[d].name;
+						row.add(words);
+						
+						square.add(row);
+						break;
+					};
+					if(day.text == "Thursday"){
+						words.text = customArray.thu[d].name;
+						row.id = customArray.thu[d].id;
+						row.name = customArray.thu[d].name;
+						row.add(words);
+						
+						square.add(row);
+						break;
+					};
+					if(day.text == "Friday"){
+						words.text = customArray.fri[d].name;
+						row.id = customArray.fri[d].id;
+						row.name = customArray.fri[d].name;
+						row.add(words);
+						
+						square.add(row);
+						break;
+					};
+					if(day.text == "Saturday"){
+						words.text = customArray.sat[d].name;
+						row.id = customArray.sat[d].id;
+						row.name = customArray.sat[d].name;
+						row.add(words);
+						
+						square.add(row);
+						break;
+					};
+					if(day.text == "Sunday"){
+						words.text = customArray.sund[d].name;
+						row.id = customArray.sund[d].id;
+						row.name = customArray.sund[d].name;
+						row.add(words);
+						
+						square.add(row);
+						break;
+					};
+					if(day.text == "Monday"){
+						words.text = customArray.mon[d].name;
+						row.id = customArray.mon[d].id;
+						row.name = customArray.mon[d].name;
+						row.add(words);
+						
+						square.add(row);
+						break;
+					};
+					if(day.text == "Tuesday"){
+						words.text = customArray.tue[d].name;
+						row.id = customArray.tue[d].id;
+						row.name = customArray.tue[d].name;
+						row.add(words);
+						
+						square.add(row);
+						break;
+					};
+	};
+	
+	purple.add(square);
+	break;
+};
+var one = "username";
+var two = "password";
+row.addEventListener("click",function(event){
+	var detailView = Ti.UI.createWindow({
+		backgroundColor: "#fff",
+		title: event.source.titleDay,
+	});
+	
+	var detailDay = Ti.UI.createLabel({
+		text: event.source.name,
+		color: "#000",
+		top: "60%",
+		left: 20,
+		font: {fontSize: "15%", fontFamily: "Roboto", fontWeight: "Bold"}
+	});
+	var detailId = Ti.UI.createLabel({
+		text: event.source.id,
+		color: "#000",
+		top: "80%",
+		left: 20,
+		font: {fontSize: "15%", fontFamily: "Roboto", fontWeight: "Bold"}
+	});
+	detailView.add(detailId);
+	detailView.add(detailDay);
+	navWindow.openWindow(detailView);
+});
+
+//var  eventId;
+	//	if(event.source.id !== "546e3606f13f3a0a350ac06f"){
+		//	eventId = event.source.id;
+	//	}
+	//	Cloud.Events.remove({
+	 //   event_id: eventId
+	//}, function (e) {
+	 //   if (e.success) {
+	    //    alert('Removed');
+	    //    login1.loginApp(one,two);
+	   // }
+	//});
+
+
+
+if(Ti.Platform.osname == "android"){
+	scrollableView.height = "80%";
+	scrollableView.width = "90%";
+	city.left = "15%";
+	city.top = 10;
+	locationIcon.top = 15;
+	
+};
+
+var divider = Ti.UI.createView({
+	backgroundColor: "#eae8e8",
+	top: 320,
+	width: "80%",
+	height: 1,
+	
+});
+
+
+
+var degree = Ti.UI.createLabel({
+	text: data[i].temp.fahrenheit+"°",
+	color: "#eae8e8",
+	bottom: 15,
+	left: 30,
+	font: {fontSize: "90%", fontFamily: "Roboto", fontWeight: "Bold"}
+});
+
+var precipitation = Ti.UI.createLabel({
+	text: data[i].humidity+"%",
+	color: "#eae8e8",
+	bottom: 70,
+	right: 30,
+	font: {fontSize: "34%", fontFamily: "Roboto", fontWeight: "Bold"}
+});
+
+var wind = Ti.UI.createLabel({
+	text: data[i].wind,
+	color: "#eae8e8",
+	bottom: 31,
+	right: 30,
+	font: {fontSize: "34%", fontFamily: "Roboto", fontWeight: "Bold"}
+});
+var mph = Ti.UI.createLabel({
+	text: "mph",
+	color: "#eae8e8",
+	bottom: 31,
+	right: 15,
+	font: {fontSize: "15%", fontFamily: "Roboto", fontWeight: "Bold"}
+});
+
+var plus = Ti.UI.createLabel({
+	text: "+",
+	color: "#eae8e8",
+	top:0,
+	right: 15,
+	font: {fontSize: "34%", fontFamily: "Roboto", fontWeight: "light"}
+});
+
+
+
+if(Ti.Platform.osname == "ipad"){
+	
+	win1.statusBarStyle = Ti.UI.iPhone.StatusBar.LIGHT_CONTENT;
+    win2.statusBarStyle = Ti.UI.iPhone.StatusBar.LIGHT_CONTENT;
+    add.statusBarStyle = Ti.UI.iPhone.StatusBar.LIGHT_CONTENT;
+    city.top = 30;
+    city.left = 100;
+    city.font = {fontSize: 50};
+    locationIcon.left = 50;
+    locationIcon.top = 45;
+    locationIcon.height = 40;
+	precipitation.font = {fontSize: 80};
+	precipitation.right = 70;
+	precipitation.bottom =100;
+	wind.font = {fontSize:80};
+	wind.right = 150;
+	wind.bottom = 35;
+	mph.right = 65;
+	mph.bottom = 45;
+	mph.font = {fontSize:"40%"};
+	
+	day.font = {fontSize: 60};
+	plus.font = {fontSize:"60%"};
+	plus.top = -10;
+	degree.font = {fontSize: 160};
+	degree.left = 60;
+	noJobs.font = {fontSize: 30};
+	noJobs.top = 260;
+	divider.top = 600;
+	
+}
+if(Ti.Platform.osname == "iphone"){
+    	win1.statusBarStyle = Ti.UI.iPhone.StatusBar.LIGHT_CONTENT;
+    	win2.statusBarStyle = Ti.UI.iPhone.StatusBar.LIGHT_CONTENT;
+    	add.statusBarStyle = Ti.UI.iPhone.StatusBar.LIGHT_CONTENT;
+    	city.top = 33;
+    	city.left = 45;
+    	purple.top = "14%";
+    	wind.right = 65;
+    	mph.right = 30;
+    	mph.bottom = 35;
+   };
+  
+  if(Ti.Platform.osname == "android"){
+    	wind.right = 80;
+    	mph.right = 30;
+   };
+   
+   
+   purple.add(mph);
+   purple.add(wind);
+	purple.add(precipitation);
+	purple.add(degree);
+	purple.add(divider);
+	purple.add(day);
+	purple.add(plus);
+   scrollableView.addView(purple);
+var testing1 = "Wednesday";
+	plus.addEventListener("click", function(e){
+		loginScreen();
+		navWind.close();
+		//addProject(data[currentView].title);
+	});
+	win2.addEventListener("click", function(e){
+		
+	});
+};
+
+
+
+
+background.add(scrollableView);
+background.add(locationIcon);
+background.add(city);
+win1.add(background);
+if(Ti.Platform.osname == "iphone"){
+    	win1.statusBarStyle = Ti.UI.iPhone.StatusBar.LIGHT_CONTENT;
+    	win2.statusBarStyle = Ti.UI.iPhone.StatusBar.LIGHT_CONTENT;
+    	add.statusBarStyle = Ti.UI.iPhone.StatusBar.LIGHT_CONTENT;
+    	city.top = 33;
+    	city.left = 45;
+    	purple.top = "14%";
+   };
+
+if (Ti.Platform.osname == "android"){
+	win1.open();
+}else{
+var navWindow = Ti.UI.iOS.createNavigationWindow({
+	window: win1,
+});
+navWindow.open();
+};	
+};
+
+
+
+//exports user interface functions to be called in data.js
+exports.userInterface = userInterface;
+
+
+
+
+
